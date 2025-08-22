@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Hasta Doktor Danışma Sistemi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-user-shield me-2"></i>
+                Admin Panel
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text">
+                    <i class="fas fa-user me-1"></i>
+                    <span id="adminName">Admin</span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" data-tab="dashboard">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-tab="doktorlar">
+                        <i class="fas fa-user-md me-2"></i>Doktorlar
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-tab="hastalar">
+                        <i class="fas fa-user me-2"></i>Hastalar
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-tab="mesajlar">
+                        <i class="fas fa-comments me-2"></i>Mesajlar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9 col-lg-10">
+                <!-- Dashboard Tab -->
+                <div id="dashboard" class="tab-content active">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h2>
+                        <button class="btn btn-primary" onclick="refreshDashboard()">
+                            <i class="fas fa-sync-alt me-1"></i>Yenile
+                        </button>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4 id="doktorSayisi">0</h4>
+                                            <p class="mb-0">Toplam Doktor</p>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="fas fa-user-md fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4 id="hastaSayisi">0</h4>
+                                            <p class="mb-0">Toplam Hasta</p>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="fas fa-user fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4 id="mesajSayisi">0</h4>
+                                            <p class="mb-0">Toplam Mesaj</p>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="fas fa-comments fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4 id="aktifGorusmeSayisi">0</h4>
+                                            <p class="mb-0">Aktif Görüşme</p>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <i class="fas fa-phone fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-chart-line me-2"></i>Son Aktiviteler</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="sonAktiviteler">
+                                        <p class="text-muted">Aktiviteler yükleniyor...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-clock me-2"></i>Son Mesajlar</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="sonMesajlar">
+                                        <p class="text-muted">Mesajlar yükleniyor...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doktorlar Tab -->
+                <div id="doktorlar" class="tab-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2><i class="fas fa-user-md me-2"></i>Doktor Yönetimi</h2>
+                        <button class="btn btn-success" onclick="showDoktorModal()">
+                            <i class="fas fa-plus me-1"></i>Yeni Doktor
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="doktorlarTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ad Soyad</th>
+                                            <th>Uzmanlık</th>
+                                            <th>Email</th>
+                                            <th>Telefon</th>
+                                            <th>Durum</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-center">Doktorlar yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hastalar Tab -->
+                <div id="hastalar" class="tab-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2><i class="fas fa-user me-2"></i>Hasta Yönetimi</h2>
+                        <button class="btn btn-success" onclick="showHastaModal()">
+                            <i class="fas fa-plus me-1"></i>Yeni Hasta
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="hastalarTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ad Soyad</th>
+                                            <th>Email</th>
+                                            <th>Telefon</th>
+                                            <th>Doğum Tarihi</th>
+                                            <th>Cinsiyet</th>
+                                            <th>Durum</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">Hastalar yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mesajlar Tab -->
+                <div id="mesajlar" class="tab-content">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2><i class="fas fa-comments me-2"></i>Mesaj Yönetimi</h2>
+                        <button class="btn btn-primary" onclick="refreshMesajlar()">
+                            <i class="fas fa-sync-alt me-1"></i>Yenile
+                        </button>
+                    </div>
+                    
+                    <!-- Doktor Seçimi ve Mesaj Yazma Alanı -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5><i class="fas fa-reply me-2"></i>Doktor Adına Mesaj Yaz</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="adminDoktorSelect" class="form-label">Doktor Seçiniz</label>
+                                    <select class="form-select" id="adminDoktorSelect">
+                                        <option value="">Doktor seçiniz...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="adminHastaSelect" class="form-label">Hasta Seçiniz</label>
+                                    <select class="form-select" id="adminHastaSelect">
+                                        <option value="">Önce doktor seçiniz...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button class="btn btn-success w-100" onclick="loadKonusma()">
+                                        <i class="fas fa-search me-1"></i>Görüşmeyi Yükle
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Konuşma Alanı -->
+                    <div class="card mb-4 d-none" id="konusmaAlani">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5><i class="fas fa-comments me-2"></i>Konuşma</h5>
+                            <span id="konusmaBilgi" class="badge bg-info"></span>
+                        </div>
+                        <div class="card-body">
+                            <div id="konusmaMesajlari" class="border rounded p-3 mb-3" style="height: 300px; overflow-y: auto;">
+                                <p class="text-muted text-center">Mesajlar burada görünecek...</p>
+                            </div>
+                            <div class="input-group">
+                                <textarea class="form-control" id="adminMesajIcerik" rows="3" placeholder="Mesajınızı yazın..."></textarea>
+                                <button class="btn btn-primary" type="button" onclick="sendAdminMesaj()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tüm Mesajlar Tablosu -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-list me-2"></i>Tüm Mesajlar</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="mesajlarTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Hasta</th>
+                                            <th>Doktor</th>
+                                            <th>Mesaj</th>
+                                            <th>Gönderen</th>
+                                            <th>Tarih</th>
+                                            <th>Durum</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">Mesajlar yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doktor Modal -->
+    <div class="modal fade" id="doktorModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="doktorModalTitle">Yeni Doktor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="doktorForm">
+                        <input type="hidden" id="doktorId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="doktorAd" class="form-label">Ad</label>
+                                <input type="text" class="form-control" id="doktorAd" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="doktorSoyad" class="form-label">Soyad</label>
+                                <input type="text" class="form-control" id="doktorSoyad" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doktorUzmanlik" class="form-label">Uzmanlık Alanı</label>
+                            <input type="text" class="form-control" id="doktorUzmanlik" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doktorEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="doktorEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doktorTelefon" class="form-label">Telefon</label>
+                            <input type="tel" class="form-control" id="doktorTelefon" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doktorAciklama" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="doktorAciklama" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="doktorAktif" checked>
+                                <label class="form-check-label" for="doktorAktif">
+                                    Aktif
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="saveDoktor()">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hasta Modal -->
+    <div class="modal fade" id="hastaModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hastaModalTitle">Yeni Hasta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="hastaForm">
+                        <input type="hidden" id="hastaId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="hastaAd" class="form-label">Ad</label>
+                                <input type="text" class="form-control" id="hastaAd" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="hastaSoyad" class="form-label">Soyad</label>
+                                <input type="text" class="form-control" id="hastaSoyad" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hastaEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="hastaEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hastaTelefon" class="form-label">Telefon</label>
+                            <input type="tel" class="form-control" id="hastaTelefon" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hastaDogumTarihi" class="form-label">Doğum Tarihi</label>
+                            <input type="date" class="form-control" id="hastaDogumTarihi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hastaCinsiyet" class="form-label">Cinsiyet</label>
+                            <select class="form-select" id="hastaCinsiyet" required>
+                                <option value="">Seçiniz</option>
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadın">Kadın</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="hastaAdres" class="form-label">Adres</label>
+                            <textarea class="form-control" id="hastaAdres" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="hastaAktif" checked>
+                                <label class="form-check-label" for="hastaAktif">
+                                    Aktif
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="saveHasta()">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Yükleniyor...</span>
+                    </div>
+                    <p class="mt-3" id="loadingText">İşlem yapılıyor...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Başarılı</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tamam</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Hata</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
