@@ -25,6 +25,7 @@ HDOD/
 ## 🚀 Özellikler
 
 ### API (.NET Core)
+
 - **Entity Framework Core** ile PostgreSQL veritabanı entegrasyonu
 - **RESTful API** endpoints
 - **CRUD** işlemleri (Create, Read, Update, Delete)
@@ -32,6 +33,7 @@ HDOD/
 - **Seed data** ile örnek veriler
 
 ### Web Arayüzü (Hasta)
+
 - **Responsive** tasarım (Bootstrap 5)
 - **Login olmadan** doktor seçimi
 - **Hasta kayıt** formu
@@ -40,6 +42,7 @@ HDOD/
 - **Modern UI/UX** tasarım
 
 ### Admin Paneli
+
 - **Dashboard** ile istatistikler
 - **Doktor yönetimi** (CRUD)
 - **Hasta yönetimi** (CRUD)
@@ -49,12 +52,14 @@ HDOD/
 ## 🛠️ Teknolojiler
 
 ### Backend
+
 - **.NET Core 9.0**
 - **Entity Framework Core**
 - **PostgreSQL**
 - **ASP.NET Core Web API**
 
 ### Frontend
+
 - **HTML5**
 - **CSS3**
 - **JavaScript (ES6+)**
@@ -65,11 +70,13 @@ HDOD/
 ## 📋 Gereksinimler
 
 ### Sistem Gereksinimleri
+
 - **.NET 9.0 SDK**
 - **PostgreSQL** veritabanı
 - **Web tarayıcısı** (Chrome, Firefox, Safari, Edge)
 
 ### Veritabanı Kurulumu
+
 1. PostgreSQL'i yükleyin
 2. Yeni bir veritabanı oluşturun: `hastadoktor_db`
 3. Kullanıcı adı ve şifre ayarlayın
@@ -123,6 +130,7 @@ python -m http.server 8001
 ## 📖 API Endpoints
 
 ### Doktorlar
+
 - `GET /api/Doktorlar` - Tüm doktorları listele
 - `GET /api/Doktorlar/{id}` - Doktor detayı
 - `POST /api/Doktorlar` - Yeni doktor ekle
@@ -130,6 +138,7 @@ python -m http.server 8001
 - `DELETE /api/Doktorlar/{id}` - Doktor sil
 
 ### Hastalar
+
 - `GET /api/Hastalar` - Tüm hastaları listele
 - `GET /api/Hastalar/{id}` - Hasta detayı
 - `POST /api/Hastalar` - Yeni hasta ekle
@@ -137,6 +146,7 @@ python -m http.server 8001
 - `DELETE /api/Hastalar/{id}` - Hasta sil
 
 ### Mesajlar
+
 - `GET /api/Mesajlar` - Tüm mesajları listele
 - `GET /api/Mesajlar/{id}` - Mesaj detayı
 - `GET /api/Mesajlar/konusma/{hastaId}/{doktorId}` - Konuşma geçmişi
@@ -147,6 +157,7 @@ python -m http.server 8001
 ## 🎯 Kullanım Senaryoları
 
 ### Hasta Kullanımı
+
 1. Web arayüzünü açın
 2. Hasta bilgilerini doldurun ve kaydedin
 3. Doktor listesinden bir doktor seçin
@@ -154,6 +165,7 @@ python -m http.server 8001
 5. Mesajlarınızı gönderin ve yanıtları bekleyin
 
 ### Admin Kullanımı
+
 1. Admin panelini açın
 2. Dashboard'da genel istatistikleri görün
 3. Doktorlar sekmesinden doktor yönetimi yapın
@@ -170,12 +182,14 @@ python -m http.server 8001
 ## 🚀 Geliştirme
 
 ### Yeni Özellik Ekleme
+
 1. API'de yeni endpoint'ler ekleyin
 2. Model sınıflarını güncelleyin
 3. Frontend'de yeni UI bileşenleri ekleyin
 4. JavaScript fonksiyonlarını güncelleyin
 
 ### Veritabanı Değişiklikleri
+
 ```bash
 # Yeni migration oluşturun
 dotnet ef migrations add MigrationName
@@ -186,22 +200,6 @@ dotnet ef database update
 
 ## 📝 Lisans
 
-Bu proje eğitim amaçlı geliştirilmiştir.
-
-## 👥 Katkıda Bulunma
-
-1. Projeyi fork edin
-2. Feature branch oluşturun (`git checkout -b feature/AmazingFeature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add some AmazingFeature'`)
-4. Branch'inizi push edin (`git push origin feature/AmazingFeature`)
-5. Pull Request oluşturun
-
-## 📞 İletişim
-
-Proje ile ilgili sorularınız için:
-- Email: [your-email@example.com]
-- GitHub: [your-github-username]
-
----
+Bu proje eğitim amaçlı geliştirilmiştir. Developer: Süeda ERSOY
 
 **Not:** Bu proje bitirme ödevi kapsamında geliştirilmiştir ve eğitim amaçlıdır.
